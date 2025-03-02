@@ -1,0 +1,175 @@
+from tkinter import *
+import math
+
+class ScientificCalculator:
+    def __init__(self):
+        self.window = Tk()
+        self.window.title("Scientific Calculator")
+        self.window.geometry('350x600')  # Increased window size to fit all buttons
+        self.window.resizable(0, 0)
+
+        frame0 = Frame(self.window)
+        frame0.grid(row=0, column=0, padx=5, pady=5)
+
+        # Creating Buttons for basic operations
+        Button(frame0, text="Add", command=self.add).grid(row=0, column=0, sticky=W)
+        Button(frame0, text="Subtract", command=self.subtract).grid(row=0, column=1, sticky=W)
+        Button(frame0, text="Multiply", command=self.multiply).grid(row=0, column=2, sticky=W)
+        Button(frame0, text="Divide", command=self.divide).grid(row=0, column=3, sticky=W)
+
+        # Creating Buttons for advanced operations
+        Button(frame0, text="sin(x)", command=self.sin_func).grid(row=1, column=0, sticky=W)
+        Button(frame0, text="cos(x)", command=self.cos_func).grid(row=1, column=1, sticky=W)
+        Button(frame0, text="tan(x)", command=self.tan_func).grid(row=1, column=2, sticky=W)
+        Button(frame0, text="log(x)", command=self.log_func).grid(row=1, column=3, sticky=W)
+
+        Button(frame0, text="ln(x)", command=self.ln_func).grid(row=2, column=0, sticky=W)
+        Button(frame0, text="e^x", command=self.e_pow_x).grid(row=2, column=1, sticky=W)
+        Button(frame0, text="abs(x)", command=self.abs_func).grid(row=2, column=2, sticky=W)
+        Button(frame0, text="x!", command=self.factorial).grid(row=2, column=3, sticky=W)
+
+        Button(frame0, text="Modulus", command=self.modulus).grid(row=3, column=0, sticky=W)
+        Button(frame0, text="Root", command=self.root_func).grid(row=3, column=1, sticky=W)  # Root button added
+        
+        # Entry frame for input and results
+        frame1 = Frame(self.window)
+        frame1.grid(row=1, column=0, pady=10)
+
+        Label(frame1, text="Number 1").pack(side=LEFT)
+        self.v1 = StringVar()
+        Entry(frame1, width=5, textvariable=self.v1, justify=RIGHT).pack(side=LEFT)
+
+        Label(frame1, text="Number 2").pack(side=LEFT)
+        self.v2 = StringVar()
+        Entry(frame1, width=5, textvariable=self.v2, justify=RIGHT).pack(side=LEFT)
+
+        Label(frame1, text="Result").pack(side=LEFT)
+        self.v3 = StringVar()
+        Entry(frame1, width=5, textvariable=self.v3, justify=RIGHT).pack(side=LEFT)
+
+        # Additional buttons
+        Button(self.window, text="Clear", command=self.clear).grid(row=2, column=0, columnspan=4)
+        Button(self.window, text="√", command=self.squareroot).grid(row=4, column=0, columnspan=4)
+
+        self.window.mainloop()
+
+    # Basic operations
+    def add(self):
+        try:
+            result = float(self.v1.get()) + float(self.v2.get())
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    def subtract(self):
+        try:
+            result = float(self.v1.get()) - float(self.v2.get())
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    def multiply(self):
+        try:
+            result = float(self.v1.get()) * float(self.v2.get())
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    def divide(self):
+        try:
+            result = float(self.v1.get()) / float(self.v2.get())
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+        except ZeroDivisionError:
+            self.v3.set("Cannot divide by zero")
+
+    # Advanced operations
+    def sin_func(self):
+        try:
+            result = math.sin(math.radians(float(self.v1.get())))
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    def cos_func(self):
+        try:
+            result = math.cos(math.radians(float(self.v1.get())))
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    def tan_func(self):
+        try:
+            result = math.tan(math.radians(float(self.v1.get())))
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    def log_func(self):
+        try:
+            result = math.log10(float(self.v1.get()))
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    def ln_func(self):
+        try:
+            result = math.log(float(self.v1.get()))
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    def e_pow_x(self):
+        try:
+            result = math.exp(float(self.v1.get()))
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    def abs_func(self):
+        try:
+            result = abs(float(self.v1.get()))
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    def factorial(self):
+        try:
+            result = math.factorial(int(self.v1.get()))
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    def modulus(self):
+        try:
+            result = float(self.v1.get()) % float(self.v2.get())
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    # Additional functions
+    def clear(self):
+        self.v1.set("")
+        self.v2.set("")
+        self.v3.set("")
+
+    def squareroot(self):
+        try:
+            result = math.sqrt(float(self.v1.get()))
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+    # New function: N-th Root (Root Button)
+    def root_func(self):
+        try:
+            number = float(self.v1.get())  # base number
+            root = float(self.v2.get())  # root value
+            result = number ** (1 / root)  # n-th root formula
+            self.v3.set(result)
+        except ValueError:
+            self.v3.set("Error")
+
+# Run the calculator
+ScientificCalculator()
